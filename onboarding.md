@@ -220,10 +220,70 @@ Integrated Tools/Docstrings*
 - Docstring of classes/functions should follow this structure:
 ![img_5.png](/src/assets/img/onboarding_img_5.png)
 
-## Auto doc generation -- to be added
-Automatic technical documentation generation can be easily done by Sphinx (+Napoleon feature for Google Style).
-- Tutorial for Sphinx: https://www.sphinx-doc.org/en/master/usage/quickstart.html
-- Short intro to Sphinx: Appendix
+## Auto doc generation
+Automatic technical documentation generation can be easily done by Sphinx (+Napoleon feature for Google Docstrings).
+
+1. Installing packages :
+
+```
+  pip install Sphinx
+```
+2. create a directory and name it docs
+
+```
+  mkdir docs
+```
+3. go to the docs folder and run the following command 
+
+```
+  sphinx-quickstart
+```
+This will present to you a series of questions required to create the basic directory and configuration layout for your project inside the docs folder. To proceed, answer each question as follows:
+
+- **Separate source and build directories (y/n) [n]:** Write “n” (without quotes) and press Enter.
+
+- **Project name:** Write “Your project name” (without quotes) and press Enter.
+
+- **Author name(s):** Write “the author” (without quotes) and press Enter.
+
+- **Project release []:** Write “the version of the project ” (without quotes) and press Enter.
+
+- **Project language [en]:** Leave it empty (the default, English) and press Enter.
+
+4. go to config.py and make sure to uncomment the following lines: 
+```python
+import os
+import sys
+sys.path.insert(0, os.path.abspath('..'))# change the path to 2 dots as it shown 
+```
+5. add the following extensions to the extensions list in the config.py file 
+```python
+extensions = [
+'sphinx.ext.autodoc','sphinx.ext.napoleon'
+]
+```
+
+6. go back to index.rst and specify which files you want to document 
+Example : 
+
+```
+ .. automodule:: src.benchmarks.lambda_benchmark_upload
+    :members:
+```
+in the above example we created a tag ..autoumodule:: then we specified the location of the file that have code and
+we want from sphinx to auto-document it, :members: means that document all the functions or classes within that file.
+
+7. generate the documentation  :
+```
+  ./make html
+```
+or
+```
+  make html
+```
+
+8. now you can go to docs --> _build --> html --> index.html and you can open in to see the documentation  
+
 
 
 # Some coding preferences
@@ -407,7 +467,9 @@ A few trigger events that we use frequently:
 - AWS RDS - Postgres
 - AWS RDS DynamoDB instead of Mongo
 - AWS S3 
+
 how to connect to DBs in PyCharm
+
 pythonic way to write SQL code???
   
 use dataclasses!!!
