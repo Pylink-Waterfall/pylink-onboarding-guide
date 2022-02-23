@@ -223,21 +223,10 @@ Integrated Tools/Docstrings*
 ## Auto doc generation <a name="da"></a>
 Automatic technical documentation generation can be easily done by Sphinx (+Napoleon feature for Google Docstrings).
 
-1. Installing packages :
+1. Installing packages : ```pip install Sphinx```
+2. create a directory and name it docs: ```mkdir docs```
+3. go to the docs folder and run the following command: ```sphinx-quickstart```
 
-```
-  pip install Sphinx
-```
-2. create a directory and name it docs
-
-```
-  mkdir docs
-```
-3. go to the docs folder and run the following command 
-
-```
-  sphinx-quickstart
-```
 This will present to you a series of questions required to create the basic directory and configuration layout for your project inside the docs folder. To proceed, answer each question as follows:
 
 - **Separate source and build directories (y/n) [n]:** Write “n” (without quotes) and press Enter.
@@ -274,13 +263,7 @@ in the above example we created a tag ..autoumodule:: then we specified the loca
 we want from sphinx to auto-document it, :members: means that document all the functions or classes within that file.
 
 7. generate the documentation  :
-```
-  ./make html
-```
-or
-```
-  make html
-```
+```./make html``` or ```make html```
 
 8. now you can go to docs --> _build --> html --> index.html and you can open in to see the documentation  
 
