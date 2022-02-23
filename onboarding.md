@@ -86,7 +86,7 @@ Some principals:
 - We encourage you to add comments and start conversation directly in the pull request.    
 - After merging the pull request, delete the feature branch.
   
-![delete_feature_branch](/src/assets/img/github_delete_feature_branch.png)
+![delete_feature_branch](/pictures/github_delete_feature_branch.png)
 
 - If you are admin on the project, always protect the production and develop branches. In the case of automated pytest, 
   add them to the requirements.
