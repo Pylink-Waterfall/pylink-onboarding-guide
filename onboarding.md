@@ -221,9 +221,69 @@ Integrated Tools/Docstrings*
 ![img_5.png](/pictures/onboarding_img_5.png)
 
 ## Auto doc generation <a name="da"></a>
-Automatic technical documentation generation can be easily done by Sphinx (+Napoleon feature for Google Style).
-- Tutorial for Sphinx: https://www.sphinx-doc.org/en/master/usage/quickstart.html
-- Short intro to Sphinx: Appendix
+Automatic technical documentation generation can be easily done by Sphinx (+Napoleon feature for Google Docstrings).
+
+1. Installing packages :
+
+```
+  pip install Sphinx
+```
+2. create a directory and name it docs
+
+```
+  mkdir docs
+```
+3. go to the docs folder and run the following command 
+
+```
+  sphinx-quickstart
+```
+This will present to you a series of questions required to create the basic directory and configuration layout for your project inside the docs folder. To proceed, answer each question as follows:
+
+- **Separate source and build directories (y/n) [n]:** Write “n” (without quotes) and press Enter.
+
+- **Project name:** Write “Your project name” (without quotes) and press Enter.
+
+- **Author name(s):** Write “the author” (without quotes) and press Enter.
+
+- **Project release []:** Write “the version of the project ” (without quotes) and press Enter.
+
+- **Project language [en]:** Leave it empty (the default, English) and press Enter.
+
+4. go to config.py and make sure to uncomment the following lines: 
+```python
+import os
+import sys
+sys.path.insert(0, os.path.abspath('..'))# change the path to 2 dots as it shown 
+```
+5. add the following extensions to the extensions list in the config.py file 
+```python
+extensions = [
+'sphinx.ext.autodoc','sphinx.ext.napoleon'
+]
+```
+
+6. go back to index.rst and specify which files you want to document 
+Example : 
+
+```
+ .. automodule:: src.benchmarks.lambda_benchmark_upload
+    :members:
+```
+in the above example we created a tag ..autoumodule:: then we specified the location of the file that have code and
+we want from sphinx to auto-document it, :members: means that document all the functions or classes within that file.
+
+7. generate the documentation  :
+```
+  ./make html
+```
+or
+```
+  make html
+```
+
+8. now you can go to docs --> _build --> html --> index.html and you can open in to see the documentation  
+
 
 
 # Some coding preferences <a name="cp"></a>
@@ -407,151 +467,13 @@ A few trigger events that we use frequently:
 - AWS RDS - Postgres
 - AWS RDS DynamoDB instead of Mongo
 - AWS S3 
+
 how to connect to DBs in PyCharm
+
 pythonic way to write SQL code???
   
 use dataclasses!!!
 
-
-Appendix
-===
----
-# Sphinx
-new version ------------
-
-before start installing sphinx make sure you alreay chose virtual environment for the project
-
-
-1. Installing packages :
-
-```
-  pip install Sphinx
-  pip install Sphinx-autobuild
-```
-The installation method used above is described in more detail in Installation from PyPI
-2. create a directory and name it docs
-
-```
-  mkdir docs
-```
-3. go to the docs folder and run the following
-
-```
-  sphinx-quickstart
-```
-This will present to you a series of questions required to create the basic directory and configuration layout for your project inside the docs folder. To proceed, answer each question as follows:
-
-- Separate source and build directories (y/n) [n]: Write “n” (without quotes) and press Enter.
-
-- Project name: Write “Your project name” (without quotes) and press Enter.
-
-- Author name(s): Write “the author” (without quotes) and press Enter.
-
-- Project release []: Write “the version of the project ” (without quotes) and press Enter.
-
-- Project language [en]: Leave it empty (the default, English) and press Enter.
-
-4. then go to index.rst and write some content
-
-5. then back to the main directory by typing 
-```
-  cd ..
-```
-6. to generate the documentation type :
-```
-  sphinx-autobuild docs docs/_build/html 
-```
-and then you can open the given url on the browser
-
-
-
-
-
-old version ----
-
-Napoleon feature helps to use Numpy ang Google style comments properly
-
-```
- pip install sphinxcontrib-napoleon
-```
-
-
-2. Without modifing all the settings on your own, we can just use the default settings:
-Before that go to the root folder of the project and preferable create a doc/docs folder and step into it:
-```
- sphinx-quickstart
-```
-
-Here a conf.py and index.py file is generated.
-On command line answer the questions:
-- I would adcise to seprate the build and source folders
-- Release I used was 0.1
-- All others up to you
-
-All these things can be seen in the conf.rst.
-
-3. Editing conf.rst and index.rst:
-Open the conf.py from the source folder with some txt editor:
-- Uncomment the path at the beginning and set to the root folder of the project
-Would look like that considering you are in the root/docs/source:
-
-```python
-import os
-import sys
-sys.path.insert(0, os.path.abspath('../..'))
-```
-
-
-- To extensions add autdoc to create auto docs for html, latex etc. and also add napoleon extension, would look like:
-```python
-extensions = [
-    'sphinx.ext.autodoc',
-    'sphinx.ext.napoleon',
-]
-```
-
-
-- if you want to exclude any module, like test you can set them from the doc like:
-```python
-exclude_patterns = ['**tests**',]
-```
-
-
-In the index.rst set the maxdepth to 10 since the Ecactus structure is really deep:
-   :maxdepth: 10
-
-and add one line using 3 white spaces before that the same way as above, otherwise, it will not work:
-      modules
-This line points at a modules.rst file that will be generated in the next step and contains inforamtion about the different modules.
-
-
-So the current file looks like:
-Welcome to Ecactus's documentation!
-***********************************
-
-.. toctree::
-   :maxdepth: 10
-   :caption: Contents:
-
-   modules
-
-4. You need to generate rst files for the doc(for the toctree):
-General code: sphinx-apidoc -o <OUTPUT_PATH> <MODULE_PATH>
-Assumed you are already in the doc or docs folder, so the code would be:
-sphinx-apidoc -o source ..
----> put all the rts files to the source folder and use all the folders/files to create these rst files
-
-5. Now you can generate the html:
-sphinx-build -b html sourcedir builddir
-In your case the sourcedir is called source and the builddir is the build so change it
-All the created html files put into the build folder.
-
-
-You can even use: make html in that case an html folder will be created in the build folder with all the files.
-It can be done in latex as well with ‘make latexpdf’ for that you need a latex builder.
-
-Website of sphinx:
-https://www.sphinx-doc.org/en/master/usage/quickstart.html
 
 
 # EC2 -- 
