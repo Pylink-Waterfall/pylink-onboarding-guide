@@ -91,7 +91,7 @@ Some principals:
 - If you are admin on the project, always protect the production and develop branches. In the case of automated pytest, 
   add them to the requirements.
   
-![img_4.png](/src/assets/img/onboarding_img_4.png)
+![img_4.png](/pictures/onboarding_img_4.png)
 
 
 # Python IDLE: PyCharm
@@ -132,13 +132,13 @@ Before you run or debug your code, make sure your configuration is correctly set
 - make sure the working directory is the project folder (root)
 - you add environment variables here -- NEVER STORE PASSWORDS IN THE CODE. ALWAYS USE ENVIRONMENT VARIABLES!!!
 
-![configuration](/src/assets/img/configuration.png)
+![configuration](/pictures/configuration.png)
 
 
 When you are debugging within a loop, sometimes you only want to stop your code once it got to a particular element. If 
 you right-click on the breakpoint, you can add condition to your break. 
 
-![breakpoint](/src/assets/img/breakpoint.png)
+![breakpoint](/pictures/breakpoint.png)
 
 Short Keys:
 - SHIFT + F10               -- run
@@ -164,12 +164,12 @@ Short Keys:
 After cloning the project, create a new virtual environment. Always use a separate environment for new projects. 
 *(File --> Settings --> Project: --> Project Interpreter)*. 
 
-![img_1.png](/src/assets/img/onboarding_img_1.png)
+![img_1.png](/pictures/onboarding_img_1.png)
 
 Code must be reproducible on another machine hence requirements.txt for package dependencies must be used. 
 Make sure you use both package name and version number.
 
-![img_2.png](/src/assets/img/onboarding_img_2.png)
+![img_2.png](/pictures/onboarding_img_2.png)
 
 You can automatically generate the requirements.txt based on the installed dependencies by using the *pipreqs* package. 
 
@@ -184,7 +184,7 @@ Use snake case for the folder and python file names.
 - Unit and regression tests must be located in the test folder
 - Configuration files (Dockerfile, Jenkinsfile, buildspec, requirements.txt) are in the root folder
 
-![img_3.png](/src/assets/img/onboarding_img_3.png)
+![img_3.png](/pictures/onboarding_img_3.png)
 
 
 # Code Style
@@ -202,7 +202,7 @@ you need to perform the following command `pip install black`. You can also chec
 reformat your code using black. Then to integrate black to PyCharm, go to 
 (*PyCharm -> Preferences... (⌘,) -> Tools -> External Tools -> Click + symbol to add new external tool*). Configure as  
 shown below and to reformat your current file, go to (Tools -> External Tools -> Black).
-![img.png](/src/assets/img/black_settings.png)
+![img.png](/pictures/black_settings.png)
   
 
 # Documentation
@@ -211,14 +211,14 @@ Docstrings are preferred to follow Google docstring format. More about Google St
 [Section 3.8](https://google.github.io/styleguide/pyguide.html). Update your settings: *File --> Settings/Tools/Python 
 Integrated Tools/Docstrings*
 
-![google_docstring](/src/assets/img/google_docstring.png)
+![google_docstring](/pictures/google_docstring.png)
 
 - Even for small projects, a single comment line is the least to be added to the functions and classes to describe what 
   it is doing without the reader having to look at the actual code.
 - Files preferably start with a docstring describing the contents and usage of the module.
 - In the case of complex functions, even use examples to elaborate on what the function does.    
 - Docstring of classes/functions should follow this structure:
-![img_5.png](/src/assets/img/onboarding_img_5.png)
+![img_5.png](/pictures/onboarding_img_5.png)
 
 ## Auto doc generation -- to be added
 Automatic technical documentation generation can be easily done by Sphinx (+Napoleon feature for Google Style).
@@ -310,7 +310,7 @@ else:
 We use [pytests framework](https://docs.pytest.org/) 
 To set it up: *(PyCharm --> Settings --> Tools --> Python integrated tools  PyTest)*
 
-![pytest](/src/assets/img/pytest_settings.png)
+![pytest](/pictures/pytest_settings.png)
 
 All code must be tested using unit tests (before being merged into production)
 All the test files should go into tests/ folder for the test files
@@ -336,18 +336,18 @@ store the images in AWS ECR.
 Steps:
 1. create requirements.txt and Dockerfile
 
-![img.png](/src/assets/img/onboarding_img_8.png)
+![img.png](/pictures/onboarding_img_8.png)
 
 2. create a new Repository in AWS ECR
 3. build the image, tag it and push it to the Repository. The actual commands are in AWS
 
-![img.png](/src/assets/img/onboarding_img_9.png)
+![img.png](/pictures/onboarding_img_9.png)
 
 If several subprojects make up the project, and each should have its own image (for example, several lambda functions 
 must be deployed), each dockerfile must be in separate folders. Also, use different requirements.txt only with the 
 dependencies needed for the subproject. 
 
-![img.png](/src/assets/img/multiple_dockers.png)
+![img.png](/pictures/multiple_dockers.png)
 
 In these cases, you have to specify the Dockerfile location in the build command:
 ```
