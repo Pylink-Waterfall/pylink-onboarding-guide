@@ -10,29 +10,29 @@ Table of contents
 
 - **[1. Starting a new project](#introduction)**
 - **[2. Project management](#project_management)**
-- **[3. Version Control](#)**
-- **[4. Python IDLE: PyCharm](#)**   
-  * [4.1. Running and Debugging](#) 
-  * [4.2. Useful PyCharm plugins](#)
-- **[5. Virtual Environment](#)**
-- **[6. Folder Structure](#)**
-- **[7. Code Style](#)**
-- **[8. Documentation](#)**   
-  * [8.1. Docstring and commenting](#) 
-  * [8.2. Auto doc generation](#)
-- **[9. Some coding preferences](#)**   
-  * [9.1. Object Oriented Programming (OOP)](#) 
-  * [9.2. Logging](#)
-  * [9.3. Exception handling](#)
-- **[10. Code Testing](#)**   
-  * [10.1. PyTests](#)
-  * [10.2. Test coverage](#)
-  * [10.3. Automated tests](#)
-  * [10.4. UI testing](#)
-- **[11. Containers (Docker & AWS ECR)](#)**
-- **[12. AWS](#)**
-- **[13. APIs](#)**
-- **[14. DataBases](#)**
+- **[3. Version Control](#v)**
+- **[4. Python IDLE: PyCharm](#p)**   
+  * [4.1. Running and Debugging](#rd) 
+  * [4.2. Useful PyCharm plugins](#pp)
+- **[5. Virtual Environment](#ve)**
+- **[6. Folder Structure](#fs)**
+- **[7. Code Style](#cs)**
+- **[8. Documentation](#d)**   
+  * [8.1. Docstring and commenting](#dc) 
+  * [8.2. Auto doc generation](#da)
+- **[9. Some coding preferences](#cp)**   
+  * [9.1. Object Oriented Programming (OOP)](#oop) 
+  * [9.2. Logging](#logging)
+  * [9.3. Exception handling](#eh)
+- **[10. Code Testing](#ct)**   
+  * [10.1. PyTests](#pytest)
+  * [10.2. Test coverage](#tc)
+  * [10.3. Automated tests](#at)
+  * [10.4. UI testing](#uit)
+- **[11. Containers (Docker & AWS ECR)](#cta)**
+- **[12. AWS](#aws)**
+- **[13. APIs](#api)**
+- **[14. DataBases](#database)**
   
 # Starting a new project <a name="introduction"></a>
 - Create new GitHub repo (the name should be lower case and use dashes instead of underscores)
@@ -64,7 +64,7 @@ We often use automation rules to move the tickets automatically.
   - When a pull request is created --> then move it to **“For Review”**
   - When a pull request is merged --> then move the issue to **“Done”**
 
-# Version Control
+# Version Control <a name="v"></a>
 Connect PyCharm to GitHub *(PyCharm --> Settings --> Version Control --> GitHub --> + --> Login via GitHub)*
 
 PyCharm Short Keys:
@@ -86,15 +86,15 @@ Some principals:
 - We encourage you to add comments and start conversation directly in the pull request.    
 - After merging the pull request, delete the feature branch.
   
-![delete_feature_branch](/src/assets/img/github_delete_feature_branch.png)
+![delete_feature_branch](/pictures/github_delete_feature_branch.png)
 
 - If you are admin on the project, always protect the production and develop branches. In the case of automated pytest, 
   add them to the requirements.
   
-![img_4.png](/src/assets/img/onboarding_img_4.png)
+![img_4.png](/pictures/onboarding_img_4.png)
 
 
-# Python IDLE: PyCharm
+# Python IDLE: PyCharm <a name="p"></a>
 We love PyCharm. Make sure you try to take advantage of its many cool features that make you a more efficient coder. 
 Logic goes into modules and packages, notebooks are for analysis/research purposes only. You can open and run notebooks 
 in the Professional PyCharm version too. Also, it is worth trying out the new Data Science IDE from JetBrains, 
@@ -127,18 +127,18 @@ Others:
 - CTRL + /                  -- commenting out a full paragraph
 
 
-### Running and Debugging
+### Running and Debugging <a name="rd"></a>
 Before you run or debug your code, make sure your configuration is correctly set up.
 - make sure the working directory is the project folder (root)
 - you add environment variables here -- NEVER STORE PASSWORDS IN THE CODE. ALWAYS USE ENVIRONMENT VARIABLES!!!
 
-![configuration](/src/assets/img/configuration.png)
+![configuration](/pictures/configuration.png)
 
 
 When you are debugging within a loop, sometimes you only want to stop your code once it got to a particular element. If 
 you right-click on the breakpoint, you can add condition to your break. 
 
-![breakpoint](/src/assets/img/breakpoint.png)
+![breakpoint](/pictures/breakpoint.png)
 
 Short Keys:
 - SHIFT + F10               -- run
@@ -150,7 +150,7 @@ Short Keys:
 - CTRL + F2                 -- stop
 
 
-### Useful PyCharm plugins
+### Useful PyCharm plugins <a name="pp"></a>
 - Statistics: it counts the number of lines in your project. It also differentiates source code, blank lines and 
   documentation.
 - Yaml Sorter
@@ -160,16 +160,16 @@ Short Keys:
 - Kite AI Code AutoComplete  -- actually, i haven't tried it yet but people recommend
 - Docker -- not sure to add...
 
-# Virtual Environment
+# Virtual Environment <a name="ve"></a>
 After cloning the project, create a new virtual environment. Always use a separate environment for new projects. 
 *(File --> Settings --> Project: --> Project Interpreter)*. 
 
-![img_1.png](/src/assets/img/onboarding_img_1.png)
+![img_1.png](/pictures/onboarding_img_1.png)
 
 Code must be reproducible on another machine hence requirements.txt for package dependencies must be used. 
 Make sure you use both package name and version number.
 
-![img_2.png](/src/assets/img/onboarding_img_2.png)
+![img_2.png](/pictures/onboarding_img_2.png)
 
 You can automatically generate the requirements.txt based on the installed dependencies by using the *pipreqs* package. 
 
@@ -178,16 +178,16 @@ pip install pipreqs
 pipreqs --force
 ```
 
-# Folder Structure
+# Folder Structure <a name="fs"></a>
 Use snake case for the folder and python file names.
 - The source code must be stored in the src folder
 - Unit and regression tests must be located in the test folder
 - Configuration files (Dockerfile, Jenkinsfile, buildspec, requirements.txt) are in the root folder
 
-![img_3.png](/src/assets/img/onboarding_img_3.png)
+![img_3.png](/pictures/onboarding_img_3.png)
 
 
-# Code Style
+# Code Style <a name="cs"></a>
 Code should be readable, consistent, simple and properly commented. Python code must comply with the 
 [PEP8 coding style](https://www.python.org/dev/peps/pep-0008/). PyCharm automatically uses PEP style.
 
@@ -202,25 +202,25 @@ you need to perform the following command `pip install black`. You can also chec
 reformat your code using black. Then to integrate black to PyCharm, go to 
 (*PyCharm -> Preferences... (⌘,) -> Tools -> External Tools -> Click + symbol to add new external tool*). Configure as  
 shown below and to reformat your current file, go to (Tools -> External Tools -> Black).
-![img.png](/src/assets/img/black_settings.png)
+![img.png](/pictures/black_settings.png)
   
 
-# Documentation
-## Docstring and commenting
+# Documentation <a name="d"></a>
+## Docstring and commenting <a name="dc"></a>
 Docstrings are preferred to follow Google docstring format. More about Google Style, docstrings are described in 
 [Section 3.8](https://google.github.io/styleguide/pyguide.html). Update your settings: *File --> Settings/Tools/Python 
 Integrated Tools/Docstrings*
 
-![google_docstring](/src/assets/img/google_docstring.png)
+![google_docstring](/pictures/google_docstring.png)
 
 - Even for small projects, a single comment line is the least to be added to the functions and classes to describe what 
   it is doing without the reader having to look at the actual code.
 - Files preferably start with a docstring describing the contents and usage of the module.
 - In the case of complex functions, even use examples to elaborate on what the function does.    
 - Docstring of classes/functions should follow this structure:
-![img_5.png](/src/assets/img/onboarding_img_5.png)
+![img_5.png](/pictures/onboarding_img_5.png)
 
-## Auto doc generation
+## Auto doc generation <a name="da"></a>
 Automatic technical documentation generation can be easily done by Sphinx (+Napoleon feature for Google Docstrings).
 
 1. Installing packages :
@@ -286,10 +286,10 @@ or
 
 
 
-# Some coding preferences
+# Some coding preferences <a name="cp"></a>
 not sure if we want to add this part.. i feel it is too deep for this doc.
 
-## Object Oriented Programming (OOP)
+## Object Oriented Programming (OOP) <a name="oop"></a>
 
 Book recommendation: [Python Object-Oriented Programming](https://www.amazon.co.uk/Python-Object-Oriented-Programming-maintainable-object-oriented-dp-1801077266/dp/1801077266/ref=dp_ob_title_bk)
 
@@ -301,11 +301,11 @@ stored data, a simple function is more suitable. Proficient Python programmers u
 until) there is nan obvious need to define a class. There is no reason to add an extra level of abstraction if it 
 doesn't help organize your code. On the other hand, the "obvious" need is not always self-evident.
 
-## Regex
+## Regex <a name="regex"></a>
 we use regex heavily. Here is a guide...
 
 
-## Logging
+## Logging <a name="logging"></a>
 Logging is highly preferred instead of “printing”.
 Use the python_log_indenter package for structure your log file better by .add() or .sub() functions.
 
@@ -315,7 +315,7 @@ logging.basicConfig(format="%(asctime)s %(message)s", level=logging.DEBUG)
 ```
 maybe we could add a bit more info about setups..
 
-## Exception handling
+## Exception handling <a name="eh"></a>
 We encourage to use the "else" and "finally" clauses of the try-except-else-finally syntax. The "finally" clause is 
 often used for
 - cleaning up an open database connection
@@ -365,12 +365,12 @@ else:
     print("Purchase complete")
 ```
 
-# Code Testing
-## pytest
+# Code Testing <a name="ct"></a>
+## pytest <a name="pytest"></a>
 We use [pytests framework](https://docs.pytest.org/) 
 To set it up: *(PyCharm --> Settings --> Tools --> Python integrated tools  PyTest)*
 
-![pytest](/src/assets/img/pytest_settings.png)
+![pytest](/pictures/pytest_settings.png)
 
 All code must be tested using unit tests (before being merged into production)
 All the test files should go into tests/ folder for the test files
@@ -380,34 +380,34 @@ All the test files should go into tests/ folder for the test files
 configuration -- keywords (--lf)
 fixtures
     
-## Test coverage 
+## Test coverage  <a name="tc"></a>
 For unit test use the [coverage tool](https://docs.pytest.org/)
 
-## Automated tests
+## Automated tests <a name="at"></a>
 Jenkins + GitHub PR requirements to protect production and develop branches
 
-## UI testing
+## UI testing <a name="uit"></a>
 selenium
 
-# Containers (Docker & AWS ECR)
+# Containers (Docker & AWS ECR) <a name="cda"></a>
 Our complex projects are made up containerised microservices by using [Docker](https://docs.docker.com/get-docker/). We 
 store the images in AWS ECR.
 
 Steps:
 1. create requirements.txt and Dockerfile
 
-![img.png](/src/assets/img/onboarding_img_8.png)
+![img.png](/pictures/onboarding_img_8.png)
 
 2. create a new Repository in AWS ECR
 3. build the image, tag it and push it to the Repository. The actual commands are in AWS
 
-![img.png](/src/assets/img/onboarding_img_9.png)
+![img.png](/pictures/onboarding_img_9.png)
 
 If several subprojects make up the project, and each should have its own image (for example, several lambda functions 
 must be deployed), each dockerfile must be in separate folders. Also, use different requirements.txt only with the 
 dependencies needed for the subproject. 
 
-![img.png](/src/assets/img/multiple_dockers.png)
+![img.png](/pictures/multiple_dockers.png)
 
 In these cases, you have to specify the Dockerfile location in the build command:
 ```
@@ -434,7 +434,7 @@ Important Docker Commands:
 for example on the deployment server
 - `docker-compose -f mongo.yaml down`	It also removes the created network
 
-# AWS
+# AWS <a name="aws"></a>
 We use many AWS services. Important practice: tag all AWS service with project key. Therefore, we can easily track the 
 AWS cost of each project.
 
@@ -456,14 +456,14 @@ A few trigger events that we use frequently:
 
 
 
-# APIs
+# APIs <a name="api"></a>
 - fast API
 - testing with Postman vs PyCharm
 - API GateWay
 
 
 
-# DataBases
+# DataBases <a name="database"></a>
 - AWS RDS - Postgres
 - AWS RDS DynamoDB instead of Mongo
 - AWS S3 
