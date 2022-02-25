@@ -266,11 +266,11 @@ in the above example we created a tag ..autoumodule:: then we specified the loca
 we want from sphinx to auto-document it, :members: means that document all the functions or classes within that file.
 
 7. generate the documentation  :
-```./make html``` or ```make html```
+```./make html```
+or
+```make html```
 
 8. now you can go to docs --> _build --> html --> index.html and you can open in to see the documentation  
-
-
 
 # Some coding preferences <a name="cp"></a>
 not sure if we want to add this part.. i feel it is too deep for this doc.
@@ -425,6 +425,13 @@ We use many AWS services. Important practice: tag all AWS service with project k
 AWS cost of each project.
 
 ### Install AWS Cli
+
+1. install [AWS cli](https://docs.aws.amazon.com/cli/latest/userguide/getting-started-install.html)
+2. open your command line and run `aws configure`
+3. fill your information 
+   - **API keys:** (provide your aws keys)
+   - **region:** eu-west-1
+   - **output format:** json
 
 
 # AWS Lambda
