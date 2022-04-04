@@ -11,21 +11,22 @@ Table of contents
 - **[1. Starting a new project](#introduction)**
 - **[2. Project management](#project_management)**
 - **[3. Version Control](#v)**
-- **[4. Python IDLE: PyCharm](#p)**   
+- **[4. Python IDE: PyCharm](#p)**   
   * [4.1. Running and Debugging](#rd) 
   * [4.2. Useful PyCharm plugins](#pp)
 - **[5. Virtual Environment](#ve)**
 - **[6. Folder Structure](#fs)**
 - **[7. Code Style](#cs)**
-- **[8. Documentation](#d)**   
-  * [8.1. Docstring and commenting](#dc) 
-  * [8.2. Auto doc generation](#da)
+- **[8. Documentation](#d)**
+  * [8.1. Type hints](#types)
+  * [8.2. Docstring and commenting](#dc) 
+  * [8.3. Auto doc generation](#da)
 - **[9. Some coding preferences](#cp)**   
-  * [9.1. Object Oriented Programming (OOP)](#oop) 
+  * [9.1. Object-Oriented Programming (OOP)](#oop) 
   * [9.2. Logging](#logging)
   * [9.3. Exception handling](#eh)
 - **[10. Code Testing](#ct)**   
-  * [10.1. PyTests](#pytest)
+  * [10.1. PyTest](#pytest)
   * [10.2. Test coverage](#tc)
   * [10.3. Automated tests](#at)
   * [10.4. UI testing](#uit)
@@ -34,13 +35,14 @@ Table of contents
 - **[13. APIs](#api)**
 - **[14. DataBases](#database)**
   
-# Starting a new project <a name="introduction"></a>
+# 1. Starting a new project <a name="introduction"></a>
 - Create new GitHub repo (the name should be lower case and use dashes instead of underscores)
 - Always add README.md file describing the project and supplying entry points and relevant links. Here is a 
-  [guide](https://guides.github.com/features/mastering-markdown/) how to apply markdown syntax for formatting documents.
+  [guide](https://guides.github.com/features/mastering-markdown/) explaining how to apply Markdown syntax for formatting
+documents.
 - Always add .gitignore (for python).
 
-# Project management <a name="project_management"></a>
+# 2. Project management <a name="project_management"></a>
 We follow Kanban concept and use Jira boards. Make sure each project has its own board with the following columns:
 - **Backlog**
 - **ToDo**
@@ -64,7 +66,7 @@ We often use automation rules to move the tickets automatically.
   - When a pull request is created --> then move it to **“For Review”**
   - When a pull request is merged --> then move the issue to **“Done”**
 
-# Version Control <a name="v"></a>
+# 3. Version Control <a name="v"></a>
 Connect PyCharm to GitHub *(PyCharm --> Settings --> Version Control --> GitHub --> + --> Login via GitHub)*
 
 PyCharm Short Keys:
@@ -94,8 +96,8 @@ Some principals:
 ![img_4.png](/pictures/onboarding_img_4.png)
 
 
-# Python IDLE: PyCharm <a name="p"></a>
-We love PyCharm. Make sure you try to take advantage of its many cool features that make you a more efficient coder. 
+# 4. Python IDE: PyCharm <a name="p"></a>
+We love PyCharm! Make sure you try to take advantage of its many cool features that make you a more efficient programmer. 
 Logic goes into modules and packages, notebooks are for analysis/research purposes only. You can open and run notebooks 
 in the Professional PyCharm version too. Also, it is worth trying out the new Data Science IDE from JetBrains, 
 [DataSpell](https://www.jetbrains.com/dataspell/). 
@@ -127,7 +129,7 @@ Others:
 - CTRL + /                  -- commenting out a full paragraph
 
 
-### Running and Debugging <a name="rd"></a>
+### 4.1 Running and Debugging <a name="rd"></a>
 Before you run or debug your code, make sure your configuration is correctly set up.
 - make sure the working directory is the project folder (root)
 - you add environment variables here -- NEVER STORE PASSWORDS IN THE CODE. ALWAYS USE ENVIRONMENT VARIABLES!!!
@@ -150,7 +152,7 @@ Short Keys:
 - CTRL + F2                 -- stop
 
 
-### Useful PyCharm plugins <a name="pp"></a>
+### 4.2 Useful PyCharm plugins <a name="pp"></a>
 - Statistics: it counts the number of lines in your project. It also differentiates source code, blank lines and 
   documentation.
 - Yaml Sorter
@@ -160,13 +162,13 @@ Short Keys:
 - Kite AI Code AutoComplete  -- actually, i haven't tried it yet but people recommend
 - Docker -- not sure to add...
 
-# Virtual Environment <a name="ve"></a>
-After cloning the project, create a new virtual environment. Always use a separate environment for new projects. 
+# 5. Virtual Environment <a name="ve"></a>
+After cloning a project, create a new virtual environment. Always use a separate environment for new projects. 
 *(File --> Settings --> Project: --> Project Interpreter)*. 
 
 ![img_1.png](/pictures/onboarding_img_1.png)
 
-Code must be reproducible on another machine hence requirements.txt for package dependencies must be used. 
+Code must be reproducible on another machine hence a requirements.txt for package dependencies must be used. 
 Make sure you use both package name and version number.
 
 ![img_2.png](/pictures/onboarding_img_2.png)
@@ -178,7 +180,7 @@ pip install pipreqs
 pipreqs --force
 ```
 
-# Folder Structure <a name="fs"></a>
+# 6. Folder Structure <a name="fs"></a>
 Use snake case for the folder and python file names.
 - The source code must be stored in the src folder
 - Unit and regression tests must be located in the test folder
@@ -187,7 +189,7 @@ Use snake case for the folder and python file names.
 ![img_3.png](/pictures/onboarding_img_3.png)
 
 
-# Code Style <a name="cs"></a>
+# 7. Code Style <a name="cs"></a>
 Code should be readable, consistent, simple and properly commented. Python code must comply with the 
 [PEP8 coding style](https://www.python.org/dev/peps/pep-0008/). PyCharm automatically uses PEP style.
 
@@ -197,18 +199,25 @@ Here are a few Pycharm short keys to reformat your code:
 - SHIFT + F6                -- rename: this is super useful!!!
 
 For code formatting, use [black](https://black.readthedocs.io/en/stable/) to ensure the same style. To install black, 
-you need to perform the following command `pip install black`. You can also check the guide on 
-[geeksforgeeks](https://www.geeksforgeeks.org/python-code-formatting-using-black/) to see an example of how you can 
-reformat your code using black. Then to integrate black to PyCharm, go to 
+you need to perform the following command `pip install black` for your primary environment. This is done to ensure that
+___black___ is always available to pycharm and is not included as part of the requirements.txt file in any project.
+You can also check the guide on [geeksforgeeks](https://www.geeksforgeeks.org/python-code-formatting-using-black/) 
+to see an example of how you can reformat your code using black. Then to integrate black to PyCharm, go to 
 (*PyCharm -> Preferences... (⌘,) -> Tools -> External Tools -> Click + symbol to add new external tool*). Configure as  
 shown below and to reformat your current file, go to (Tools -> External Tools -> Black).
 ![img.png](/pictures/black_settings.png)
   
 
-# Documentation <a name="d"></a>
-## Docstring and commenting <a name="dc"></a>
+# 8. Documentation <a name="d"></a>
+## 8.1 Type hints <a name="types"></a>
+Type hints are a useful trick to use while programming in python as they aid in the code's readability and can help 
+others to more easily understand your code. In order to add type hints in python simply add a colon then the type after 
+the initial declaration of a variable, e.g. `integer_value: int = 1`. 
+
+As a minimum we should use type hinting in the declaration of a class/function, as demonstrated in 
+## 8.2 Docstring and commenting <a name="dc"></a>
 Docstrings are preferred to follow Google docstring format. More about Google Style, docstrings are described in 
-[Section 3.8](https://google.github.io/styleguide/pyguide.html). Update your settings: *File --> Settings/Tools/Python 
+[Section 3.8](https://google.github.io/styleguide/pyguide.html#38-comments-and-docstrings). Update your settings: *File --> Settings/Tools/Python 
 Integrated Tools/Docstrings*
 
 ![google_docstring](/pictures/google_docstring.png)
@@ -218,9 +227,32 @@ Integrated Tools/Docstrings*
 - Files preferably start with a docstring describing the contents and usage of the module.
 - In the case of complex functions, even use examples to elaborate on what the function does.    
 - Docstring of classes/functions should follow this structure:
-![img_5.png](/pictures/onboarding_img_5.png)
 
-## Auto doc generation <a name="da"></a>
+```python
+def example_function(input_1: str, input_2: list, input_3: dict) -> Tuple[pd.DataFrame, datetime.date]:
+    """One sentence description of function's purpose.
+
+    More detailed description and use-case
+    
+    Args:
+        input_1: Description of parameter
+        input_2: Description of parameter
+        input_3: Description of parameter
+
+    Returns:
+        output_1: Description of return values
+        output_2: Description of return values
+
+    Raises:
+        ErrorType/ExceptionType: Description of the raise
+    """
+    input_2.append(datetime.datetime.strptime(input_1))
+    output_1 = pd.DataFrame(input_3)
+    output_2 = max(input_2)
+    return output_1, output_2
+```
+
+## 8.3 Auto doc generation <a name="da"></a>
 Automatic technical documentation generation can be easily done by Sphinx (+Napoleon feature for Google Docstrings).
 
 1. Installing packages :
@@ -288,7 +320,9 @@ until) there is nan obvious need to define a class. There is no reason to add an
 doesn't help organize your code. On the other hand, the "obvious" need is not always self-evident.
 
 ## Regex <a name="regex"></a>
-we use regex heavily. Here is a guide...
+We use regex heavily. Here is a basic [guide](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Regular_Expressions/Cheatsheet)
+that covers the most important features of regex. Additionally, you can use this [regex sandbox](https://regexr.com/) 
+to help build and test your regex expressions.
 
 
 ## Logging <a name="logging"></a>
