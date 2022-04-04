@@ -1,105 +1,41 @@
-Pylink’s onboarding guide for junior python developers
+Pylink’s guide for junior python developers
 ===
-
-This document describes best practices and development choices to promote alignment among the python developers at 
-Pylink. These standards and set processes will lower the threshold of collaboration and help newcomers adapt to the 
-described workflows.
+This document describes the best practices and development choices made at Pylink for python developers.
+By following these standards and processes, the barrier for entry as a junior python developer/coder is lowered.
 
 Table of contents
 ===
 
 - **[1. Starting a new project](#introduction)**
-- **[2. Project management](#project_management)**
+- **[2. Python IDE: PyCharm](#p)**
+  * [2.1. Running and Debugging](#rd)
+  * [2.2. Useful PyCharm plugins](#pp)
 - **[3. Version Control](#v)**
-- **[4. Python IDE: PyCharm](#p)**   
-  * [4.1. Running and Debugging](#rd) 
-  * [4.2. Useful PyCharm plugins](#pp)
-- **[5. Virtual Environment](#ve)**
-- **[6. Folder Structure](#fs)**
-- **[7. Code Style](#cs)**
-- **[8. Documentation](#d)**
-  * [8.1. Type hints](#types)
-  * [8.2. Docstring and commenting](#dc) 
-  * [8.3. Auto doc generation](#da)
-- **[9. Some coding preferences](#cp)**   
-  * [9.1. Object-Oriented Programming (OOP)](#oop) 
-  * [9.2. Logging](#logging)
-  * [9.3. Exception handling](#eh)
-- **[10. Code Testing](#ct)**   
-  * [10.1. PyTest](#pytest)
-  * [10.2. Test coverage](#tc)
-  * [10.3. Automated tests](#at)
-  * [10.4. UI testing](#uit)
-- **[11. Containers (Docker & AWS ECR)](#cta)**
-- **[12. AWS](#aws)**
-- **[13. APIs](#api)**
-- **[14. DataBases](#database)**
+- **[4. Virtual Environment](#ve)**
+- **[5. Folder Structure](#fs)**
+- **[6. Code Style](#cs)**
+- **[7. Documentation](#d)**
+  * [7.1. Type hints](#types)
+  * [7.2. Docstring and commenting](#dc) 
+  * [7.3. Auto doc generation](#da)
+- **[8. Code Testing](#ct)**   
+  * [8.1. PyTest](#pytest)
+  * [8.2. Test coverage](#tc)
   
 # 1. Starting a new project <a name="introduction"></a>
-- Create new GitHub repo (the name should be lower case and use dashes instead of underscores)
+In order to allow for easy collaboration with others we suggest always to use _git_ with a project. At pylink we use 
+GitHub to manage our projects and [version control](#v), as such, this guide will describe the process within the GitHub
+framework.
+- Create new GitHub repo (the name should be lowercase and use dashes instead of underscores)
 - Always add README.md file describing the project and supplying entry points and relevant links. Here is a 
   [guide](https://guides.github.com/features/mastering-markdown/) explaining how to apply Markdown syntax for formatting
 documents.
 - Always add .gitignore (for python).
 
-# 2. Project management <a name="project_management"></a>
-We follow Kanban concept and use Jira boards. Make sure each project has its own board with the following columns:
-- **Backlog**
-- **ToDo**
-- **In Progress**
-- **In Pull Request**: for code review before merging to the development environment
-- **In QA**: testing the feature in development
-- **Done**: after it is merged to production
-
-In the case of simpler projects: 
-- **Backlog**
-- **ToDo**
-- **In Progress**
-- **For Review**: 
-- **Done**:
-
-### Jira Automation
-We often use automation rules to move the tickets automatically.
-- Connect the projects board to GitHub
-- Add the following rules:
-  - When a branch is created --> then move the issue to **“In Progress”**
-  - When a pull request is created --> then move it to **“For Review”**
-  - When a pull request is merged --> then move the issue to **“Done”**
-
-# 3. Version Control <a name="v"></a>
-Connect PyCharm to GitHub *(PyCharm --> Settings --> Version Control --> GitHub --> + --> Login via GitHub)*
-
-PyCharm Short Keys:
-- CTRL + T                  -- update project
-- CTRL + ALT + A            -- git add
-- CTRL + K                  -- git commit
-- CTRL + SHIFT + K          -- git push
-- CTRL + ALT + Z            -- git reset (rollback)
-
-Some principals:
-- When you pick up a new JIRA ticket, pull the develop branch and open a new feature branch from it. Name your new 
-  branch after the ticket name (for example AL-157).
-- Commit and push your code at least daily, especially if you leave for the day. Just in case someone needs to 
-  continue working on your ticket.
-- Always use proper commit messages that can be understood by others. Here is a 
-  [how to write commit message guide](https://chris.beams.io/posts/git-commit/#why-not-how).
-- In the pull request body, add detailed information to help the reviewer's job. For example, explain how you tested 
-  your code before created the PR.
-- We encourage you to add comments and start conversation directly in the pull request.    
-- After merging the pull request, delete the feature branch.
-  
-![delete_feature_branch](/pictures/github_delete_feature_branch.png)
-
-- If you are admin on the project, always protect the production and develop branches. In the case of automated pytest, 
-  add them to the requirements.
-  
-![img_4.png](/pictures/onboarding_img_4.png)
-
-
-# 4. Python IDE: PyCharm <a name="p"></a>
-We love PyCharm! Make sure you try to take advantage of its many cool features that make you a more efficient programmer. 
-Logic goes into modules and packages, notebooks are for analysis/research purposes only. You can open and run notebooks 
-in the Professional PyCharm version too. Also, it is worth trying out the new Data Science IDE from JetBrains, 
+# 2. Python IDE: PyCharm <a name="p"></a>
+We love PyCharm at Pylink! Make sure you try to take advantage of its many cool features that make you a more efficient 
+programmer. You can open and run notebooks in the Professional PyCharm version too. Also, it is worth trying out the 
+new Data Science IDE from JetBrains, 
 [DataSpell](https://www.jetbrains.com/dataspell/). 
 
 First time installation:
@@ -116,23 +52,24 @@ Open Tool Windows:
 - ALT + 4                   -- Run
 - ALT + 5                   -- Debug
 - ALT + 9                   -- Git
-- ALT + F12                 -- open terminal
+- ALT + F12                 -- Open terminal
 
 Others:
-- CTRL + SHIFT + F          -- search in the whole project
-- CTRL + SHIFT + R          -- replace in the whole project
-- CTRL + SHIFT + C          -- copy document path
-- CTRL + SHIFT + UP/DOWN    -- more line up or down
+- CTRL + SHIFT + F          -- Search in the whole project
+- CTRL + SHIFT + R          -- Replace in the whole project
+- CTRL + SHIFT + C          -- Copy document path
+- CTRL + SHIFT + UP/DOWN    -- Move line up or down
+- Double CTRL + UP/DOWN     -- Add extra carets to allow for multi line editing
 - SHIFT + ENTER             -- start new line
-- TAB                       -- indent a full paragraph
-- SHIFT + TAB               -- demote a full paragraph
-- CTRL + /                  -- commenting out a full paragraph
+- TAB                       -- indent selection
+- SHIFT + TAB               -- demote a selection
+- CTRL + /                  -- comment out selection (reversible)
 
 
-### 4.1 Running and Debugging <a name="rd"></a>
+### 2.1 Running and Debugging <a name="rd"></a>
 Before you run or debug your code, make sure your configuration is correctly set up.
 - make sure the working directory is the project folder (root)
-- you add environment variables here -- NEVER STORE PASSWORDS IN THE CODE. ALWAYS USE ENVIRONMENT VARIABLES!!!
+- you add environment variables here -- NEVER STORE PASSWORDS IN CODE. ALWAYS USE ENVIRONMENT VARIABLES!!!
 
 ![configuration](/pictures/configuration.png)
 
@@ -142,7 +79,7 @@ you right-click on the breakpoint, you can add condition to your break.
 
 ![breakpoint](/pictures/breakpoint.png)
 
-Short Keys:
+Shortcut Keys:
 - SHIFT + F10               -- run
 - SHIFT + F9                -- debug
 - F8                        -- step over
@@ -152,24 +89,54 @@ Short Keys:
 - CTRL + F2                 -- stop
 
 
-### 4.2 Useful PyCharm plugins <a name="pp"></a>
+### 2.2 Useful PyCharm plugins <a name="pp"></a>
 - Statistics: it counts the number of lines in your project. It also differentiates source code, blank lines and 
   documentation.
 - Yaml Sorter
 - RainShadow Brackets
-- one of the JSON formatter -- not sure which one
-- AWS Toolkit -- not sure to add...
-- Kite AI Code AutoComplete  -- actually, i haven't tried it yet but people recommend
-- Docker -- not sure to add...
+- JSON formatter
+- Kite AI Code AutoComplete 
 
-# 5. Virtual Environment <a name="ve"></a>
+# 3. Version Control <a name="v"></a>
+Connect PyCharm to GitHub *(PyCharm --> Settings --> Version Control --> GitHub --> + --> Login via GitHub)*
+
+PyCharm Shortcut Keys:
+- CTRL + T                  -- update project
+- CTRL + ALT + A            -- git add
+- CTRL + K                  -- git commit
+- CTRL + SHIFT + K          -- git push
+- CTRL + ALT + Z            -- git reset (rollback)
+
+Some principals which we stick to when collaborating:
+- When you pick up a new ticket, pull the develop branch and open a new feature branch from it. Name your new 
+  branch after the ticket name (for example AL-157).
+- Commit and push your code at least daily, especially if you leave for the day. Just in case someone needs to 
+  continue working on your ticket.
+- Always use proper commit messages that can be understood by others. Here is a guide about
+  [how to write commit message](https://chris.beams.io/posts/git-commit/#why-not-how).
+- In the pull request body, add detailed information to help the reviewer's job. For example, explain how you tested 
+  your code before created the PR.
+- We encourage you to add comments and start conversation directly in the pull request.    
+- After merging the pull request, delete the feature branch.
+  
+![delete_feature_branch](/pictures/github_delete_feature_branch.png)
+
+- If you are admin on the project, always protect the production and develop branches. In the case of automated pytest, 
+  add them to the requirements.
+  
+![img_4.png](/pictures/onboarding_img_4.png)
+
+# 4. Virtual Environment <a name="ve"></a>
 After cloning a project, create a new virtual environment. Always use a separate environment for new projects. 
 *(File --> Settings --> Project: --> Project Interpreter)*. 
 
 ![img_1.png](/pictures/onboarding_img_1.png)
 
-Code must be reproducible on another machine hence a requirements.txt for package dependencies must be used. 
-Make sure you use both package name and version number.
+Or simply type `py -m venv venv` in the command line.
+
+
+As code should be reproducible on other machines we strongly advise to create a requirements.txt containing all package
+dependencies used in the project. Make sure you use both package name and version number.
 
 ![img_2.png](/pictures/onboarding_img_2.png)
 
@@ -180,7 +147,7 @@ pip install pipreqs
 pipreqs --force
 ```
 
-# 6. Folder Structure <a name="fs"></a>
+# 5. Folder Structure <a name="fs"></a>
 Use snake case for the folder and python file names.
 - The source code must be stored in the src folder
 - Unit and regression tests must be located in the test folder
@@ -188,45 +155,55 @@ Use snake case for the folder and python file names.
 
 ![img_3.png](/pictures/onboarding_img_3.png)
 
+When building a project, logic goes into modules and packages and is saved in _.py_ format. Notebooks are for 
+analysis/research purposes only and should **never** be used to store source code! 
 
-# 7. Code Style <a name="cs"></a>
+
+# 6. Code Style <a name="cs"></a>
 Code should be readable, consistent, simple and properly commented. Python code must comply with the 
 [PEP8 coding style](https://www.python.org/dev/peps/pep-0008/). PyCharm automatically uses PEP style.
 
 Here are a few Pycharm short keys to reformat your code:
-- custom                    -- make sure you saved a key for *Black*, I overwrote the CTRL + S, since I did not use it
+- custom                    -- make sure you saved a key for *Black*, we overwrote the CTRL + S, as Pycharm auto-saves 
+files we did not use it
 - CTRL + ALT + O            -- reformat imports (unfortunately *Black* doesn't do it.)
 - SHIFT + F6                -- rename: this is super useful!!!
 
-For code formatting, use [black](https://black.readthedocs.io/en/stable/) to ensure the same style. To install black, 
+For code formatting, we use [black](https://black.readthedocs.io/en/stable/) to ensure the same style. To install black, 
 you need to perform the following command `pip install black` for your primary environment. This is done to ensure that
 ___black___ is always available to pycharm and is not included as part of the requirements.txt file in any project.
 You can also check the guide on [geeksforgeeks](https://www.geeksforgeeks.org/python-code-formatting-using-black/) 
 to see an example of how you can reformat your code using black. Then to integrate black to PyCharm, go to 
-(*PyCharm -> Preferences... (⌘,) -> Tools -> External Tools -> Click + symbol to add new external tool*). Configure as  
+(*PyCharm -> Preferences... (Ctrl + ,) -> Tools -> External Tools -> Click + symbol to add new external tool*). Configure as  
 shown below and to reformat your current file, go to (Tools -> External Tools -> Black).
 ![img.png](/pictures/black_settings.png)
   
 
-# 8. Documentation <a name="d"></a>
-## 8.1 Type hints <a name="types"></a>
+# 7. Documentation <a name="d"></a>
+## 7.1 Type hints <a name="types"></a>
 Type hints are a useful trick to use while programming in python as they aid in the code's readability and can help 
 others to more easily understand your code. In order to add type hints in python simply add a colon then the type after 
 the initial declaration of a variable, e.g. `integer_value: int = 1`. 
 
-As a minimum we should use type hinting in the declaration of a class/function, as demonstrated in 
-## 8.2 Docstring and commenting <a name="dc"></a>
-Docstrings are preferred to follow Google docstring format. More about Google Style, docstrings are described in 
-[Section 3.8](https://google.github.io/styleguide/pyguide.html#38-comments-and-docstrings). Update your settings: *File --> Settings/Tools/Python 
+As a minimum we should use type hinting in the declaration of a class/function, as demonstrated below. By using type 
+hints it helps the inbuilt linter in PyCharm highlight any potential mistakes that could arise from incorrect variable
+types being passed into/returned from functions and in specific cases can be used with _mypy_ to make your code run 
+faster!
+
+## 7.2 Docstring and commenting <a name="dc"></a>
+We prefer for docstrings to follow Google docstring format. More about Google Style docstrings can be found in 
+[Section 3.8](https://google.github.io/styleguide/pyguide.html#38-comments-and-docstrings). 
+
+To set Google as the default format in PyCharm, simply update your settings: *File --> Settings/Tools/Python 
 Integrated Tools/Docstrings*
 
 ![google_docstring](/pictures/google_docstring.png)
 
-- Even for small projects, a single comment line is the least to be added to the functions and classes to describe what 
-  it is doing without the reader having to look at the actual code.
+- Even for small projects, a single comment line is the minimum that should be added to functions and classes to 
+describe what it is doing without the reader having to look at the actual code.
 - Files preferably start with a docstring describing the contents and usage of the module.
-- In the case of complex functions, even use examples to elaborate on what the function does.    
-- Docstring of classes/functions should follow this structure:
+- In the case of complex functions, even use examples to elaborate what the function does.    
+- Docstrings of classes/functions should follow this structure:
 
 ```python
 def example_function(input_1: str, input_2: list, input_3: dict) -> Tuple[pd.DataFrame, datetime.date]:
@@ -252,7 +229,7 @@ def example_function(input_1: str, input_2: list, input_3: dict) -> Tuple[pd.Dat
     return output_1, output_2
 ```
 
-## 8.3 Auto doc generation <a name="da"></a>
+## 7.3 Auto doc generation <a name="da"></a>
 Automatic technical documentation generation can be easily done by Sphinx (+Napoleon feature for Google Docstrings).
 
 1. Installing packages :
@@ -262,15 +239,16 @@ Automatic technical documentation generation can be easily done by Sphinx (+Napo
 3. go to the docs folder and run the following command:
 ```sphinx-quickstart```
 
-This will present to you a series of questions required to create the basic directory and configuration layout for your project inside the docs folder. To proceed, answer each question as follows:
+This will present to you a series of questions required to create the basic directory and configuration layout for your
+project inside the docs folder. To proceed, answer each question as follows:
 
-- **Separate source and build directories (y/n) [n]:** Write “n” (without quotes) and press Enter.
+- **Separate source and build directories (y/n) [n]:** Type “n” and press Enter.
 
-- **Project name:** Write “Your project name” (without quotes) and press Enter.
+- **Project name:** "PROJECT_NAME" and press Enter.
 
-- **Author name(s):** Write “the author” (without quotes) and press Enter.
+- **Author name(s):** "AUTHOR_NAME" and press Enter.
 
-- **Project release []:** Write “the version of the project ” (without quotes) and press Enter.
+- **Project release []:** "PROJECT_VERSION" and press Enter.
 
 - **Project language [en]:** Leave it empty (the default, English) and press Enter.
 
@@ -304,95 +282,16 @@ or
 
 8. now you can go to docs --> _build --> html --> index.html and you can open in to see the documentation  
 
-# Some coding preferences <a name="cp"></a>
-not sure if we want to add this part.. i feel it is too deep for this doc.
 
-## Object Oriented Programming (OOP) <a name="oop"></a>
+# 8. Code Testing <a name="ct"></a>
+## 8.1 pytest <a name="pytest"></a>
+We use the [pytest framework](https://docs.pytest.org/) to test our code.
 
-Book recommendation: [Python Object-Oriented Programming](https://www.amazon.co.uk/Python-Object-Oriented-Programming-maintainable-object-oriented-dp-1801077266/dp/1801077266/ref=dp_ob_title_bk)
-
-Avoid overusing OOP but in complex projects, it might be a good idea to use them. Before you start coding, try to design 
-the abstraction. Identify objects in the problem and then model their data and behaviours. Remember, objects are things 
-that have both data and behaviour. If you are working only with data, you are often better off storing it in a list, 
-set, dictionary or some other Python data structure. On the other hand, if you are working only with behavior, but no 
-stored data, a simple function is more suitable. Proficient Python programmers use built-in data structures unless (or
-until) there is nan obvious need to define a class. There is no reason to add an extra level of abstraction if it 
-doesn't help organize your code. On the other hand, the "obvious" need is not always self-evident.
-
-## Regex <a name="regex"></a>
-We use regex heavily. Here is a basic [guide](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Regular_Expressions/Cheatsheet)
-that covers the most important features of regex. Additionally, you can use this [regex sandbox](https://regexr.com/) 
-to help build and test your regex expressions.
-
-
-## Logging <a name="logging"></a>
-Logging is highly preferred instead of “printing”.
-Use the python_log_indenter package for structure your log file better by .add() or .sub() functions.
-
-```python
-import logging
-logging.basicConfig(format="%(asctime)s %(message)s", level=logging.DEBUG)
-```
-maybe we could add a bit more info about setups..
-
-## Exception handling <a name="eh"></a>
-We encourage to use the "else" and "finally" clauses of the try-except-else-finally syntax. The "finally" clause is 
-often used for
-- cleaning up an open database connection
-- closing an open file
-- sending a closing handshake over the network
-
-In complex projects, it might be useful to define your own custom exception. It might be a powerful way to communicate
-information between two sections of code that may not be directly calling each other.
-
-```python
-class InvalidItemType(Exception):
-    pass
-
-class OutOfStock(Exception):
-    pass
-
-
-class Inventory:
-    
-    stock = {
-        'apple': 35,
-        'orange': 5,
-        'banana': 0
-    }
-    
-    def purchase(self, fruit_name):
-        if fruit_name not in self.stock.keys():
-            raise InvalidItemType(f"Sorry, we don't sell {fruit_name}")
-        if self.stock[fruit_name] == 0:
-            raise OutOfStock("Sorry, that item is out of stock.")
-        self.stock[fruit_name] -= 1
-            
-
-inv = Inventory()
-
-
-try:
-    product = 'apple'
-    number_left = inv.puchase(product)
-except InvalidItemType as e:
-    print(e)
-    print('Please select another fruit.')
-except OutOfStock as e:
-    print(e)
-    print("You might want to come back tomorrow!")
-else:
-    print("Purchase complete")
-```
-
-# Code Testing <a name="ct"></a>
-## pytest <a name="pytest"></a>
-We use [pytests framework](https://docs.pytest.org/) 
-To set it up: *(PyCharm --> Settings --> Tools --> Python integrated tools  PyTest)*
+To set it up: *(PyCharm --> Settings --> Tools --> Python integrated tools --> PyTest)*
 
 ![pytest](/pictures/pytest_settings.png)
 
-All code must be tested using unit tests (before being merged into production)
+All code should be tested using unit tests (before being merged into production)
 All the test files should go into tests/ folder for the test files
 - data for testing purposes can go to the tests/data/ folder
 - unit test are placed within the tests/ folder with the exact same directory structure as the original structure
@@ -400,112 +299,5 @@ All the test files should go into tests/ folder for the test files
 configuration -- keywords (--lf)
 fixtures
     
-## Test coverage  <a name="tc"></a>
+## 8.2 Test coverage  <a name="tc"></a>
 For unit test use the [coverage tool](https://docs.pytest.org/)
-
-## Automated tests <a name="at"></a>
-Jenkins + GitHub PR requirements to protect production and develop branches
-
-## UI testing <a name="uit"></a>
-selenium
-
-# Containers (Docker & AWS ECR) <a name="cda"></a>
-Our complex projects are made up containerised microservices by using [Docker](https://docs.docker.com/get-docker/). We 
-store the images in AWS ECR.
-
-Steps:
-1. create requirements.txt and Dockerfile
-
-![img.png](/pictures/onboarding_img_8.png)
-
-2. create a new Repository in AWS ECR
-3. build the image, tag it and push it to the Repository. The actual commands are in AWS
-
-![img.png](/pictures/onboarding_img_9.png)
-
-If several subprojects make up the project, and each should have its own image (for example, several lambda functions 
-must be deployed), each dockerfile must be in separate folders. Also, use different requirements.txt only with the 
-dependencies needed for the subproject. 
-
-![img.png](/pictures/multiple_dockers.png)
-
-In these cases, you have to specify the Dockerfile location in the build command:
-```
-docker build -t adv_upload -f src/adv_data/Dockerfile .
-```
-
-Important Docker Commands:
-- `docker images`	Show all the downloaded images
-- `docker pull redis:4.0`	Download image
-- `docker run redis`	Run image --> container
-- `docker ps`	Which containers are running
-- `docker run -d redis`	Run in a detached mode
-- `docker stop 91b839004766`	
-- `docker start 91b839004766`	
-- `docker ps -a`	Show all containers that are running or stopped
-- `docker run -p6000:6379 -d redis`	Binding the 6379 docker port to the 6000 port on the host
-- `docker logs zen_bartik`	Check out log files, you can use name or id
-- `docker run -d -p6001:6379 --name redis-custom-name redis`	Name your container
-- `docker exec -it 243422bf4714 /bin/bash`	Open a container for debugging. 	
-- `docker network ls`	List existing networks
-- `docker network create mongo-network`	Create own network
-- `docker run -p 27017:27017 -d --net mongo-network mongo`	How to run something on the network -- here the user name and password environment variables are not added yet. 
-- `docker-compose -f mongo.yaml up`	Run the containers -- it creates the network 
-for example on the deployment server
-- `docker-compose -f mongo.yaml down`	It also removes the created network
-
-# AWS <a name="aws"></a>
-We use many AWS services. Important practice: tag all AWS service with project key. Therefore, we can easily track the 
-AWS cost of each project.
-
-### Install AWS Cli
-
-1. install [AWS cli](https://docs.aws.amazon.com/cli/latest/userguide/getting-started-install.html)
-2. open your command line and run `aws configure`
-3. fill your information 
-   - **API keys:** (provide your aws keys)
-   - **region:** eu-west-1
-   - **output format:** json
-
-
-# AWS Lambda
-Pack your application into a docker image and create the Lambda function from the image. Otherwise, it might be 
-tricky to install dependencies. You probably need to upload the dependencies (Amazon Linux version) in zip files to 
-Layers. Unfortunately, the limit of the total zip directory including dependencies is only 50 MB vs 10 GB for the 
-container image limit. 
-
-A few trigger events that we use frequently:
-- API Gateway
-- file is uploaded to S3
-- EventBridge scheduled call
-- SNS message
-- SQS queue message
-
-
-
-# APIs <a name="api"></a>
-- fast API
-- testing with Postman vs PyCharm
-- API GateWay
-
-
-
-# DataBases <a name="database"></a>
-- AWS RDS - Postgres
-- AWS RDS DynamoDB instead of Mongo
-- AWS S3 
-
-how to connect to DBs in PyCharm
-
-pythonic way to write SQL code???
-  
-use dataclasses!!!
-
-
-
-# EC2 -- 
-download pem file and https://www.youtube.com/watch?v=8UqtMcX_kg0&ab_channel=StephaneMaarek
-
-if you are on windows you have to convert the pem file to ppk with putty
-https://www.youtube.com/watch?v=jv-dgOfFN4o&ab_channel=StephaneMaarek
-download Patty here: https://www.chiark.greenend.org.uk/~sgtatham/putty/latest.html
