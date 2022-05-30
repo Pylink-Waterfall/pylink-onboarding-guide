@@ -270,13 +270,56 @@ we want from sphinx to auto-document it, :members: means that document all the f
 
 
 # Some coding preferences <a name="cp"></a>
-not sure if we want to add this part.. i feel it is too deep for this doc.
+We maintain high coding standards and don't tolerate fast but badly design code development at Pylink. Try to avoid 
+complexity. Your code won't be merged without proper documentations and unittests. Probably, you not always get your 
+code design right at the first time. As your code evolves, you might find inefficient parts. We encourage you to often
+investigate the codebase and invest time into refactoring. 
+
+It is ok to have complex classes if the complexity is hidden in a deep module. On the other hand, each class should have 
+a simple interface. For the methods and arguments that are not part of the interface, always start their name with the 
+"_" character that indicates that these are not for public use. 
+
+```python
+class SimpleInterface:
+  
+    def __init__(self, x, y):
+        self.x = x
+        self.y = y
+        self._hidden_argument = None
+    
+    def interface_function(self, a, b):
+        """ the user only have to understand the interface and no need to focus on the "deep part" of the class """
+        self._complex_hidden_calculation_1(a)
+        self._complex_hidden_calculation_2(b)
+
+    def _complex_hidden_calculation_1(self, a):
+        """ complexity is hidden here """
+        if self._hidden_argument:
+            # do something
+            pass
+        else:
+            # do something else
+            pass
+    
+    def _complex_hidden_calculation_2(self, b):
+        """ complexity is hidden here """
+        pass
+
+```
+
+A few terms to be aware of:
+- modular design 
+- abstraction
+- interface
+- deep module
+
+Book recommendation: [A philosophy of software design]()
 
 ## Object Oriented Programming (OOP) <a name="oop"></a>
 
 Book recommendation: [Python Object-Oriented Programming](https://www.amazon.co.uk/Python-Object-Oriented-Programming-maintainable-object-oriented-dp-1801077266/dp/1801077266/ref=dp_ob_title_bk)
 
-Avoid overusing OOP but in complex projects, it might be a good idea to use them. Before you start coding, try to design 
+Avoid overusing OOP but in complex projects, it is probably a good idea to use them. Before you start coding, try to design 
 the abstraction. Identify objects in the problem and then model their data and behaviours. Remember, objects are things 
 that have both data and behaviour. If you are working only with data, you are often better off storing it in a list, 
 set, dictionary or some other Python data structure. On the other hand, if you are working only with behavior, but no 
