@@ -375,10 +375,10 @@ Jenkins + GitHub PR requirements to protect production and develop branches
 ## UI testing <a name="uit"></a>
 selenium
 
-# Containers (Docker & AWS ECR) <a name="cda"></a>
+# Containers (Docker & Docker-Compose & AWS ECR) <a name="cda"></a>
 Our complex projects are made up containerised microservices by using [Docker](https://docs.docker.com/get-docker/). We 
 store the images in AWS ECR.
-
+### Docker
 Steps:
 1. create requirements.txt and Dockerfile
 
@@ -419,6 +419,39 @@ Important Docker Commands:
 - `docker-compose -f mongo.yaml up`	Run the containers -- it creates the network 
 for example on the deployment server
 - `docker-compose -f mongo.yaml down`	It also removes the created network
+### Docker Compose
+Docker Compose is a tool that developed to help define and share multi-container applications.
+with Compose, you can create a YAML file to define the services and run it with one single command.
+
+In the following example we have two services storage24 and imowelt and in the following example is how to configure
+these services in one yaml file
+```
+version: "3.9"  -- compose version
+services:    -- here you define your services 
+  storage24:  -- service name 
+    image: storage24  -- image name 
+    build:  --- here you will specify the building config  
+      context: . --- here you specify the directory that will used by container 
+      dockerfile: src/competitor_pricing/storage24/Dockerfile  -- docker file location 
+    volumes: -- here you mount a directory acces for the container, for example to get aws credentials 
+      - ${USERPROFILE}/.aws:/root/.aws:ro
+  imowelt:
+    image: imowelt
+    build:
+      context: .
+      dockerfile: src/competitor_pricing/imowelt/Dockerfile
+    volumes:
+      - ${USERPROFILE}/.aws:/root/.aws:ro
+```
+### Docker Compose commands 
+`docker-compose build   --build all the services within the yaml file`
+
+`docker-compose up  -- run all the services within the YAML file`
+
+`docker-compose build storage24 -- build a specific service from the Yaml file(example:storage24)`
+
+`docker-compose up storage24 -- run a specific service (storage24)`
+
 
 # AWS <a name="aws"></a>
 We use many AWS services. Important practice: tag all AWS service with project key. Therefore, we can easily track the 
@@ -433,7 +466,16 @@ AWS cost of each project.
    - **region:** eu-west-1
    - **output format:** json
 
+#Amazon ECR
+Amazon Elastic Container Registry (Amazon ECR) is an AWS managed container image registry service that is secure, 
+scalable, and reliable. Amazon ECR supports private repositories with resource-based permissions using AWS IAM
+To push a Docker image to an Amazon ECR repository the following article explain all the steps:
+[AWS ECR](https://docs.aws.amazon.com/AmazonECR/latest/userguide/docker-push-ecr-image.html)
+in the first step of the article we use different method to access aws which is profiling as follows:
 
+`aws ecr get-login-password --profile profile_name --region eu-west-2 | docker login --username AWS --password-stdin 606305135128.dkr.ecr.eu-west-2.amazonaws.com`
+
+for the rest you can just follow the article
 # AWS Lambda
 Pack your application into a docker image and create the Lambda function from the image. Otherwise, it might be 
 tricky to install dependencies. You probably need to upload the dependencies (Amazon Linux version) in zip files to 
