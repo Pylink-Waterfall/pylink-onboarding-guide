@@ -29,7 +29,7 @@ Table of contents
   * [10.2. Test coverage](#tc)
   * [10.3. Automated tests](#at)
   * [10.4. UI testing](#uit)
-- **[11. Containers (Docker & AWS ECR)](#cta)**
+- **[11. Containers (Docker & Docker-Compose & AWS ECR)](#cta)**
 - **[12. AWS](#aws)**
 - **[13. APIs](#api)**
 - **[14. DataBases](#database)**
